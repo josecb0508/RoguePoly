@@ -1,0 +1,39 @@
+#ifndef SQUARE_HPP
+#define SQUARE_HPP
+#include <SFML/Graphics.hpp>
+
+enum SquareType
+{
+    NONE,
+    START,
+    TERRITORY,
+    FREE
+};
+
+enum Region
+{
+    R_NONE,
+    RED_ZONE,
+    BLUE_ZONE,
+    GREEN_ZONE,
+    YELLOW_ZONE,
+    PURPLE_ZONE
+};
+
+class Square
+{
+    public:
+    int width;
+    int height;
+    SquareType type;
+    Region region;
+    std::string name;
+    sf::RectangleShape shape;
+    sf::Vector2f getPosition();
+    void orientate(bool horizontal);
+    void setSize(int w, int h);
+    Square();
+    Square(SquareType t, Region r, std::string n);
+};
+
+#endif
