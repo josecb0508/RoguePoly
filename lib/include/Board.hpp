@@ -7,10 +7,10 @@ class Board
 {
     public:
     Square squares[44];
-    void configureCoordinates();
+    void configure_coordinates();
     public:
     Board();
-    void drawboard(sf::RenderWindow &window);
+    void draw_board(sf::RenderWindow &window);
 };
 
 #endif

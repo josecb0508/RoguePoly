@@ -10,13 +10,8 @@
 class GameMaster
 {
     public:
-        int RollDice();
-        void PlayTurn(Player& p);
+        int roll_dice();
+        void play_turn(Player& p);
 };
-
-
-
-
-
 
 #endif

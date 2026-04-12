@@ -1,6 +1,6 @@
 #include "GameMaster.hpp"
 
-int GameMaster::RollDice()
+int GameMaster::roll_dice()
 {
     static std::random_device rd;
     std::mt19937 gen(rd());
@@ -10,8 +10,8 @@ int GameMaster::RollDice()
     return result;
 }
 
-void GameMaster::PlayTurn(Player& p)
+void GameMaster::play_turn(Player& p)
 {
-    int result = RollDice();
+    int result = roll_dice();
     p.move(result);
 }

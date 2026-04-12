@@ -23,16 +23,16 @@ sf::RenderWindow window(sf::VideoMode(1200, 800), "Roguepoly");
 
             if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Space) 
             {
-                gameMaster.PlayTurn(player);
-                int i = player.get_currentSquare();
+                gameMaster.play_turn(player);
+                int i = player.get_current_square();
                 board.squares[i].get_square(i);
             }
         }
 
         window.clear(sf::Color(80, 80, 80)); 
 
-        board.drawboard(window);
-        player.draw(window);
+        board.draw_board(window);
+        player.draw_player(window);
 
         window.display();
     }

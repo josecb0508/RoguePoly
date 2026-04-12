@@ -55,10 +55,10 @@ Board::Board() : squares
 } 
 
 {
-    configureCoordinates(); 
+    configure_coordinates(); 
 }
 
-void Board::configureCoordinates() 
+void Board::configure_coordinates() 
 {
     const float margin = 2.f;
     const float init_x = 300.f;   
@@ -117,7 +117,7 @@ void Board::configureCoordinates()
     }
 }
 
-void Board::drawboard(sf::RenderWindow &window) 
+void Board::draw_board(sf::RenderWindow &window) 
 {
     for (int i = 0; i < 44; ++i) 
     {

@@ -67,14 +67,14 @@ Square::Square(SquareType t, Region r, std::string n, Player* p, int v, int l) :
     }
 }
 
-void Square::setSize(int w, int h) 
+void Square::set_size(int w, int h) 
 {
     width = w;
     height = h;
     shape.setSize(sf::Vector2f(width, height));
 }
 
-sf::Vector2f Square::getPosition()
+sf::Vector2f Square::get_position()
 {
     return shape.getPosition(); 
 }

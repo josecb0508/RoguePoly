@@ -8,19 +8,19 @@ class Square;
 class Player 
 {   
     private:
-        int currentSquareIndex;
+        int current_square_;
         sf::CircleShape circle;
-        Square (&boardSquares)[44];
+        Square (&board_squares)[44];
     public:
 
-    Player(Square (&boardRef)[44]);
+    Player(Square (&board_ref)[44]);
     void move(int steps);
 
-    void UpdatePosition();
+    void update_position();
 
-    int get_currentSquare();
+    int get_current_square();
 
-    void draw(sf::RenderWindow &window);
+    void draw_player(sf::RenderWindow &window);
 };
 
 #endif

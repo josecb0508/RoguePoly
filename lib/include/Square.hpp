@@ -34,9 +34,9 @@ class Square
     int value;
     int level;
     sf::RectangleShape shape;
-    sf::Vector2f getPosition();
+    sf::Vector2f get_position();
     void orientate(bool horizontal);
-    void setSize(int w, int h);
+    void set_size(int w, int h);
     void get_square(int position);
     Square();
     Square(SquareType t, Region r, std::string n, Player* p, int v, int l);
