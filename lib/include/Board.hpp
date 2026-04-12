@@ -5,6 +5,7 @@
 
 class Board
 {
+    public:
     Square squares[44];
     void configureCoordinates();
     public:

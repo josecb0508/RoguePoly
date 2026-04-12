@@ -1,19 +1,22 @@
 #include "Square.hpp"
 
-Square::Square() : width(0), height(0), type(NONE), region(R_NONE), name("Vacio") {
+Square::Square() : width(0), height(0), type(NONE), region(R_NONE), name("Vacio"), propietary(nullptr), value(0), level(0) 
+{
     shape.setSize(sf::Vector2f(width, height));
     shape.setFillColor(sf::Color::White);
     shape.setOutlineThickness(2.f);
     shape.setOutlineColor(sf::Color::Black);
 }
 
-Square::Square(SquareType t, Region r, std::string n) : type(t), region(r), name(n) 
+Square::Square(SquareType t, Region r, std::string n, Player* p, int v, int l) : type(t), region(r), name(n), propietary(p), value(v), level(l)
 {
     
     if (type == START || type == FREE)  
     {
         width = 80;
         height = 80;
+        level = 0;
+        value = 0;
     } 
     else 
     {
@@ -56,12 +59,12 @@ Square::Square(SquareType t, Region r, std::string n) : type(t), region(r), name
                     break;
                 default:
                     shape.setFillColor(sf::Color::White);
+                    level = 0;
                     break;
             }
         default:
             break;
     }
-
 }
 
 void Square::setSize(int w, int h) 
@@ -85,5 +88,52 @@ void Square::orientate(bool horizontal)
     else 
     {
         shape.setSize(sf::Vector2f(static_cast<float>(height), static_cast<float>(width)));
+    }
+}
+
+void Square::get_square(int position)
+{
+    std::cout <<"Nombre: " << name << std::endl;
+    std::cout <<"Posicion: " << position << std::endl;
+    if (type == TERRITORY)
+    {
+        switch (region)
+        {
+            case RED_ZONE:    
+                std::cout <<"Zona: Roja" << std::endl; 
+                break;
+            case BLUE_ZONE:   
+                std::cout <<"Zona: Azul" << std::endl; 
+                break;
+            case GREEN_ZONE:  
+                std::cout <<"Zona: Verde" << std::endl; 
+                break;
+            case YELLOW_ZONE: 
+                std::cout <<"Zona: Amarilla" << std::endl; 
+                break;
+            case PURPLE_ZONE: 
+                std::cout <<"Zona: Morada" << std::endl; 
+                break;
+            default:
+                std::cout <<"Zona: Ninguna" << std::endl;
+                break;
+        }
+        std::cout <<"Valor: " << value << std::endl;
+        if(propietary == nullptr)
+        {
+            std::cout <<"Sin Propietario" << std::endl;
+        }
+    }
+    else if(type == START)
+    {
+        std::cout <<"Casilla de inicio" << std::endl;
+    }
+    else if(type == FREE)
+    {
+        std::cout <<"Casilla free" << std::endl;
+    }
+    else
+    {
+        std::cout <<"Casilla nula" << std::endl;
     }
 }
