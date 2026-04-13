@@ -17,7 +17,8 @@ void process_events(sf::RenderWindow& window, Player& player, Board& board, Game
         {
             game_master.play_turn(player);            
             int i = player.get_current_square();
-            board.squares[i].get_square(i);
+            Square& current_square = board.get_square(i);
+            current_square.print_info_square(i);
         }
     }
 }

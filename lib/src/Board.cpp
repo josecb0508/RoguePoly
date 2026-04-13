@@ -117,6 +117,11 @@ void Board::configure_coordinates()
     }
 }
 
+Square& Board::get_square(int i)
+{
+    return squares[i];
+}
+
 void Board::draw_board(sf::RenderWindow &window) 
 {
     for (int i = 0; i < 44; ++i) 

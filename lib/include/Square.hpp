@@ -37,7 +37,7 @@ class Square
     sf::Vector2f get_position();
     void orientate(bool horizontal);
     void set_size(int w, int h);
-    void get_square(int position);
+    void print_info_square(int position);
     Square();
     Square(SquareType t, Region r, std::string n, Player* p, int v, int l);
 };

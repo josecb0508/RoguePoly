@@ -91,7 +91,7 @@ void Square::orientate(bool horizontal)
     }
 }
 
-void Square::get_square(int position)
+void Square::print_info_square(int position)
 {
     std::cout <<"Nombre: " << name << std::endl;
     std::cout <<"Posicion: " << position << std::endl;
