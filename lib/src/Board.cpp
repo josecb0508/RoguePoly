@@ -77,13 +77,13 @@ void Board::configure_coordinates()
     
     const float right = init_x + width_row - margin; 
 
-    squares[0].shape.setPosition(right - squares[0].shape.getSize().x, init_y - squares[0].shape.getSize().y);
+    squares[0].shape.setPosition({right - squares[0].shape.getSize().x, init_y - squares[0].shape.getSize().y});
     
     for (int i = 1; i <= 11; i++) 
     {
         float x = squares[i-1].shape.getPosition().x - squares[i].shape.getSize().x - margin;
         float y = init_y - squares[i].shape.getSize().y;
-        squares[i].shape.setPosition(x, y); 
+        squares[i].shape.setPosition({x, y}); 
     }
 
     for (int i = 12; i <= 21; i++) 
@@ -91,29 +91,29 @@ void Board::configure_coordinates()
         squares[i].orientate(false); 
         float x = squares[11].shape.getPosition().x; 
         float y = squares[i-1].shape.getPosition().y - squares[i].shape.getSize().y - margin;
-        squares[i].shape.setPosition(x, y);
+        squares[i].shape.setPosition({x, y });
     }
 
     squares[22].orientate(true);
-    squares[22].shape.setPosition( squares[11].shape.getPosition().x,squares[21].shape.getPosition().y - squares[22].shape.getSize().y - margin);
+    squares[22].shape.setPosition({squares[11].shape.getPosition().x,squares[21].shape.getPosition().y - squares[22].shape.getSize().y - margin});
 
     for (int i = 23; i <= 32; i++) 
     {
         squares[i].orientate(true);
         float x = squares[i-1].shape.getPosition().x + squares[i-1].shape.getSize().x + margin;
         float y = squares[22].shape.getPosition().y;
-        squares[i].shape.setPosition(x, y);
+        squares[i].shape.setPosition({x, y});
     }
 
     squares[33].orientate(true);
-    squares[33].shape.setPosition(squares[32].shape.getPosition().x + squares[32].shape.getSize().x + margin, squares[22].shape.getPosition().y);
+    squares[33].shape.setPosition({squares[32].shape.getPosition().x + squares[32].shape.getSize().x + margin, squares[22].shape.getPosition().y});
 
     for (int i = 34; i <= 43; i++) 
     {
         squares[i].orientate(false);
         float x = squares[0].shape.getPosition().x; 
         float y = squares[i-1].shape.getPosition().y + squares[i-1].shape.getSize().y + margin;
-        squares[i].shape.setPosition(x, y);
+        squares[i].shape.setPosition({x, y});
     }
 }
 
