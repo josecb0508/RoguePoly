@@ -105,7 +105,7 @@ void GameMaster::give_properties(Player&p, Square& s)
             }
             else
             {
-                std::cout << "Pasas de comprar. La casilla sigue disponible." << std::endl;
+                std::cout << "No compras la casilla. La casilla sigue disponible." << std::endl;
             }
         } 
         else 
