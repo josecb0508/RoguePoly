@@ -123,6 +123,10 @@ void Square::print_info_square(int position)
         {
             std::cout <<"Sin Propietario" << std::endl;
         }
+        else
+        {
+            std::cout << "Estado: PROPIEDAD DE " << propietary->get_name() << std::endl;
+        }
     }
     else if(type == START)
     {
