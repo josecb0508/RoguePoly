@@ -1,13 +1,22 @@
 #include "GameMaster.hpp"
 
+GameMaster::GameMaster() 
+    : generator(std::random_device{}()), distribution(1, 6) 
+{
+    //Empty
+}
+
 int GameMaster::roll_dice()
 {
-    static std::random_device rd;
-    std::mt19937 gen(rd());
-    static std::uniform_int_distribution<> d12(1, 12);
-    int result = d12(gen);
-    std::cout <<"Dado: " << result << std::endl;
-    return result;
+// Simulamos el lanzamiento de dos dados independientes
+    int dado1 = distribution(generator);
+    int dado2 = distribution(generator);
+    int total = dado1 + dado2;
+
+    // Imprimimos el detalle para que el equipo vea los valores individuales
+    std::cout << "Dados: [" << dado1 << "] + [" << dado2 << "] = " << total << std::endl;
+    
+    return total;
 }
 
 void GameMaster::play_turn(Player& p)

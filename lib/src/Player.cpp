@@ -27,12 +27,12 @@ void Player::update_position()
     circle.setPosition(square_position.x + margin_offset, square_position.y + margin_offset);
 }
 
-int Player::get_current_square() 
+int Player::get_current_square() const
 {
     return current_square_;
 }   
 
-void Player::draw_player(sf::RenderWindow &window) 
+void Player::draw_player(sf::RenderWindow &window) const
 {
     window.draw(circle);
 }

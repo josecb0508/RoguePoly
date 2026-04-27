@@ -2,7 +2,7 @@
 
 Square::Square() : width(0), height(0), type(NONE), region(R_NONE), name("Vacio"), propietary(nullptr), value(0), level(0) 
 {
-    shape.setSize(sf::Vector2f(width, height));
+    shape.setSize(sf::Vector2f(0.f, 0.f));
     shape.setFillColor(sf::Color::White);
     shape.setOutlineThickness(2.f);
     shape.setOutlineColor(sf::Color::Black);
@@ -74,7 +74,7 @@ void Square::set_size(int w, int h)
     shape.setSize(sf::Vector2f(width, height));
 }
 
-sf::Vector2f Square::get_position()
+sf::Vector2f Square::get_position() const
 {
     return shape.getPosition(); 
 }
@@ -91,7 +91,7 @@ void Square::orientate(bool horizontal)
     }
 }
 
-void Square::print_info_square(int position)
+void Square::print_info_square(int position) const
 {
     std::cout <<"Nombre: " << name << std::endl;
     std::cout <<"Posicion: " << position << std::endl;

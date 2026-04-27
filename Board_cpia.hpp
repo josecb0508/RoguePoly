@@ -13,7 +13,7 @@ public:
     void configure_coordinates();
     Square& get_square(int i);
     const Square& get_square(int i) const;
-    void draw_board(sf::RenderWindow &window) const;
+    void draw_board(sf::RenderWindow &window);
 };
 
 #endif

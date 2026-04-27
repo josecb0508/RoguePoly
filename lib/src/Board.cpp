@@ -122,7 +122,12 @@ Square& Board::get_square(int i)
     return squares[i];
 }
 
-void Board::draw_board(sf::RenderWindow &window) 
+const Square& Board::get_square(int i) const
+{
+    return squares[i];
+}
+
+void Board::draw_board(sf::RenderWindow &window) const
 {
     for (int i = 0; i < 44; ++i) 
     {
