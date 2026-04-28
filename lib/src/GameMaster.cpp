@@ -3,6 +3,7 @@
 #include <iostream> // PARA EL ERROR DE cout
 #include <random>
 
+
 int GameMaster::roll_dice()
 {
     static std::random_device rd;
@@ -23,6 +24,19 @@ int GameMaster::play_turn(Player& p)
     return suma_total;
 }
 
+
+    int result = d12(gen);
+    std::cout << "Dado: " << result << std::endl;
+    return result;
+}
+
+void GameMaster::play_turn(Player& p)
+{
+    int result = roll_dice();
+    p.move(result);
+}
+
+
 template <typename T>
 void insertion_sort(std::vector<T>& c)
 {
@@ -39,11 +53,17 @@ void insertion_sort(std::vector<T>& c)
     }
 }
 
+
 // CORRECCIÓN: Cambiado de void a std::string para coincidir con el .hpp
 std::string GameMaster::set_turn_player(std::vector<Player>& players)
 {
     std::vector<std::pair<size_t, int>> player_rolls;
     std::stringstream log; // Ahora sí funcionará por el #include <sstream>
+
+void GameMaster::set_turn_player(std::vector<Player>& players)
+{
+    std::vector<std::pair<size_t, int>> player_rolls;
+
 
     for (size_t i = 0; i < players.size(); ++i)
     {
@@ -76,6 +96,9 @@ std::string GameMaster::set_turn_player(std::vector<Player>& players)
     std::vector<Player> sorted_players;
     log << "\n=== RESULTADOS DEL SORTEO ===\n";
 
+    std::cout << "\n=== RESULTADOS DEL SORTEO ===" << std::endl;
+
+
     for (size_t i = 0; i < player_rolls.size(); ++i) 
     {
         size_t original_index = player_rolls[i].first;
@@ -83,8 +106,11 @@ std::string GameMaster::set_turn_player(std::vector<Player>& players)
         players[original_index].set_name(final_name);
         players[original_index].set_order((int)i);
         
+
         log << final_name << " saco: " << player_rolls[i].second << " (Posicion " << i+1 << ")\n";
-        
+
+        std::cout << final_name << " saco: " << player_rolls[i].second << " (Posicion " << i+1 << ")" << std::endl;
+
         sorted_players.push_back(players[original_index]);
     }
 
@@ -99,4 +125,40 @@ void GameMaster::give_properties(Player& p, Square& s)
     // Función vacía por ahora para evitar el bloqueo de cin
     (void)p; // Evita el warning de "unused parameter"
     (void)s;
+    std::cout << "=============================\n" << std::endl;
+}
+
+void GameMaster::give_properties(Player&p, Square& s)
+{
+    char choice;
+    if(s.type == TERRITORY)
+    {
+        if (s.type == TERRITORY) 
+        {
+            if (s.propietary == nullptr) 
+            {
+                char choice = 'n'; 
+                std::cout << "¿Deseas adquirir " << s.name << "? (y/n): ";
+                std::cin >> choice;
+
+            if (choice == 'y' || choice == 'Y') 
+            {
+                s.propietary = &p;
+                p.add_property(&s);
+                std::cout << "Propiedad adquirida." << std::endl;
+            }
+            else
+            {
+                std::cout << "No compras la casilla. La casilla sigue disponible." << std::endl;
+            }
+        } 
+        else 
+        {
+            if (s.propietary != &p) 
+            {
+                std::cout << "Esta casilla ya tiene dueño." << std::endl;
+            }
+        }
+        }
+    }
 }

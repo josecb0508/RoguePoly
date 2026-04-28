@@ -12,9 +12,15 @@ class GameMaster
 {
     public:
         int roll_dice();
+
         int play_turn(Player& p);
         std::vector<Player> players;
         std::string set_turn_player(std::vector<Player>& players);
+
+        void play_turn(Player& p);
+        std::vector<Player> players;
+        void set_turn_player(std::vector<Player>& players);
+
         void give_properties(Player&p, Square& s);
 };
 

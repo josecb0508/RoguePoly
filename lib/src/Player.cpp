@@ -20,22 +20,33 @@ void Player::move(int steps)
 
 void Player::update_position() 
 {
+<<<<<<< HEAD
     sf::RectangleShape& currentShape = board_squares[current_square_].shape;
     
     sf::Vector2f basePos = currentShape.getPosition();
     sf::Vector2f size = currentShape.getSize(); // Obtenemos el tamaño real (80x80 o 50x80)
 
     sf::Vector2f centerPos = basePos + sf::Vector2f(size.x / 2.f, size.y / 2.f);
+=======
+    sf::Vector2f basePos = board_squares[current_square_].shape.getPosition();
+    
+    sf::Vector2f centerPos = basePos + sf::Vector2f(40.f, 40.f);
+>>>>>>> 7dc7782560eabf7bc86104da79f534ca49187d00
     
     float radius = circle.getRadius();
     circle.setOrigin({radius, radius});
 
+<<<<<<< HEAD
     float offsetX = size.x * 0.25f;
     float offsetY = size.y * 0.25f;
+=======
+    float offset = 20.0f;
+>>>>>>> 7dc7782560eabf7bc86104da79f534ca49187d00
     
     sf::Color color = circle.getFillColor();
     if (color == sf::Color::Red) 
     {
+<<<<<<< HEAD
         circle.setPosition({centerPos.x - offsetX, centerPos.y - offsetY});
     } 
     else if (color == sf::Color::Blue) 
@@ -49,6 +60,21 @@ void Player::update_position()
     else if (color == sf::Color::Yellow) 
     {
         circle.setPosition({centerPos.x + offsetX, centerPos.y + offsetY});
+=======
+        circle.setPosition({centerPos.x - offset, centerPos.y - offset});
+    } 
+    else if (color == sf::Color::Blue) 
+    {
+        circle.setPosition({centerPos.x - offset, centerPos.y - offset});
+    } 
+    else if (color == sf::Color::Green) 
+    {
+        circle.setPosition({centerPos.x - offset, centerPos.y - offset});
+    } 
+    else if (color == sf::Color::Yellow) 
+    {
+        circle.setPosition({centerPos.x - offset, centerPos.y - offset});
+>>>>>>> 7dc7782560eabf7bc86104da79f534ca49187d00
     } 
     else 
     {

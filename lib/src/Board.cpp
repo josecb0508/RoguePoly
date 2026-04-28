@@ -52,6 +52,7 @@ Board::Board() : squares
     Square(TERRITORY, R_NONE, "R8", nullptr, 0, 0),
     Square(TERRITORY, R_NONE, "R9", nullptr, 0, 0),
     Square(TERRITORY, R_NONE, "R10", nullptr, 0, 0)
+
 },
 infoText(font)
 {
@@ -67,6 +68,10 @@ infoText(font)
     infoText.setPosition({20.f, 20.f}); 
     
     // Configuración física de las casillas
+
+} 
+
+{
     configure_coordinates(); 
 }
 
@@ -140,6 +145,7 @@ void Board::draw_board(sf::RenderWindow &window)
     {
         window.draw(squares[i].shape);
     }
+
 }
 
 // Función auxiliar para convertir el Enum a Texto
@@ -186,4 +192,5 @@ void Board::draw_info_panel(sf::RenderWindow &window, int square_index, std::str
 
     window.draw(bg);
     window.draw(infoText);
+
 }
