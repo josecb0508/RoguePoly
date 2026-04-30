@@ -14,7 +14,6 @@ class Board
        void draw_board(sf::RenderWindow &window);
        void draw_info_panel(sf::RenderWindow &window, int square_index, std::string message);
 
-    private:
         sf::Font font;
         sf::Text infoText;
         std::string gameLog; // Nueva variable para mensajes del juego
