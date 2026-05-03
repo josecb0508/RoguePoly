@@ -2,45 +2,53 @@
 
 Board::Board() : squares 
 {
-    Square(START, R_NONE, "START", nullptr, 0, 0),       
-    Square(TERRITORY, RED_ZONE, "D1", nullptr, 60, 2),        
-    Square(TERRITORY, RED_ZONE, "D2", nullptr, 60, 4),      
-    Square(TERRITORY, RED_ZONE, "D3", nullptr, 80, 4),          
-    Square(TERRITORY, RED_ZONE, "D4", nullptr, 80, 6),            
-    Square(TERRITORY, BLUE_ZONE, "D5", nullptr, 100, 6),           
-    Square(TERRITORY, BLUE_ZONE, "D6", nullptr, 100, 8),           
-    Square(TERRITORY, BLUE_ZONE, "D7", nullptr, 120, 8),           
-    Square(TERRITORY, BLUE_ZONE, "D8", nullptr, 120, 10),         
-    Square(TERRITORY, GREEN_ZONE, "D9", nullptr, 140, 10),           
-    Square(TERRITORY, GREEN_ZONE, "D10", nullptr, 140, 12),           
-
-    Square(FREE, R_NONE, "Carcel", nullptr, 0, 0),  
-
-    Square(TERRITORY, GREEN_ZONE, "L1", nullptr, 160, 12),            
-    Square(TERRITORY, GREEN_ZONE, "L2", nullptr, 160, 14),            
-    Square(TERRITORY, YELLOW_ZONE, "L3", nullptr, 180, 14),           
-    Square(TERRITORY, YELLOW_ZONE, "L4", nullptr, 180, 16),         
-    Square(TERRITORY, YELLOW_ZONE, "L5", nullptr, 200, 16),         
-    Square(TERRITORY, YELLOW_ZONE, "L6", nullptr, 200, 18),         
-    Square(TERRITORY, PURPLE_ZONE, "L7", nullptr, 220, 18),          
-    Square(TERRITORY, PURPLE_ZONE, "L8", nullptr, 220, 20),            
-    Square(TERRITORY, PURPLE_ZONE, "L9", nullptr, 240, 20),            
-    Square(TERRITORY, PURPLE_ZONE, "L10", nullptr, 240, 22),         
-
-    Square(FREE, R_NONE, "Parada", nullptr, 0, 0),   
-
-    Square(TERRITORY, RED_ZONE, "U1", nullptr, 260, 22),          
-    Square(TERRITORY, RED_ZONE, "U2", nullptr, 260, 24),       
-    Square(TERRITORY, RED_ZONE, "U3", nullptr, 280, 24),         
-    Square(TERRITORY, RED_ZONE, "U4", nullptr, 280, 26),      
-    Square(TERRITORY, RED_ZONE, "U5", nullptr, 300, 26),       
-    Square(TERRITORY, RED_ZONE, "U6", nullptr, 300, 28),         
-    Square(TERRITORY, RED_ZONE, "U7", nullptr, 320, 28),      
-    Square(TERRITORY, RED_ZONE, "U8", nullptr, 320, 30),         
-    Square(TERRITORY, RED_ZONE, "U9", nullptr, 350, 35),        
-    Square(TERRITORY, RED_ZONE, "U10", nullptr, 400, 50),         
-
-    Square(FREE, R_NONE, "Ir Carcel", nullptr, 0, 0),
+        Square(START, R_NONE, "SALIDA", nullptr, 0, 0),       
+        Square(TERRITORY, RED_ZONE, "D1", nullptr, 60, 2),        
+        Square(TERRITORY, RED_ZONE, "D2", nullptr, 60, 4),      
+        Square(TERRITORY, RED_ZONE, "D3", nullptr, 80, 4),          
+        Square(TERRITORY, RED_ZONE, "D4", nullptr, 80, 6),            
+        Square(TERRITORY, RED_ZONE, "D5", nullptr, 100, 6),           
+        Square(TERRITORY, RED_ZONE, "D6", nullptr, 100, 8),           
+        Square(TERRITORY, RED_ZONE, "D7", nullptr, 120, 8),           
+        Square(TERRITORY, RED_ZONE, "D8", nullptr, 120, 10),         
+        Square(TERRITORY, RED_ZONE, "D9", nullptr, 140, 10),           
+        Square(TERRITORY, RED_ZONE, "D10", nullptr, 140, 12),           
+        Square(FREE, R_NONE, "PARADA", nullptr, 0, 0),       
+        Square(TERRITORY, GREEN_ZONE, "L1", nullptr, 160, 12),            
+        Square(TERRITORY, GREEN_ZONE, "L2", nullptr, 160, 14),            
+        Square(TERRITORY, GREEN_ZONE, "L3", nullptr, 180, 14),           
+        Square(TERRITORY, GREEN_ZONE, "L4", nullptr, 180, 16),         
+        Square(TERRITORY, GREEN_ZONE, "L5", nullptr, 200, 16),         
+        Square(TERRITORY, GREEN_ZONE, "L6", nullptr, 200, 18),         
+        Square(TERRITORY, GREEN_ZONE, "L7", nullptr, 220, 18),          
+        Square(TERRITORY, GREEN_ZONE, "L8", nullptr, 220, 20),            
+        Square(TERRITORY, GREEN_ZONE, "L9", nullptr, 240, 20),            
+        Square(TERRITORY, GREEN_ZONE, "L10", nullptr, 240, 22),         
+        Square(FREE, R_NONE, "CARCEL", nullptr, 0, 0),       
+        Square(TERRITORY, PURPLE_ZONE, "U1", nullptr, 260, 22),          
+        Square(TERRITORY, PURPLE_ZONE, "U2", nullptr, 260, 24),       
+        Square(TERRITORY, PURPLE_ZONE, "U3", nullptr, 280, 24),         
+        Square(TERRITORY, PURPLE_ZONE, "U4", nullptr, 280, 26),      
+        Square(TERRITORY, PURPLE_ZONE, "U5", nullptr, 300, 26),       
+        Square(TERRITORY, PURPLE_ZONE, "U6", nullptr, 300, 28),         
+        Square(TERRITORY, PURPLE_ZONE, "U7", nullptr, 320, 28),      
+        Square(TERRITORY, PURPLE_ZONE, "U8", nullptr, 320, 30),         
+        Square(TERRITORY, PURPLE_ZONE, "U9", nullptr, 350, 35),        
+        Square(TERRITORY, PURPLE_ZONE, "U10", nullptr, 400, 50),         
+        Square(FREE, R_NONE, "PARADA", nullptr, 0, 0),       
+        Square(TERRITORY, YELLOW_ZONE, "R1", nullptr, 150, 15), 
+        Square(TERRITORY, YELLOW_ZONE, "R2", nullptr, 150, 15),
+        Square(TERRITORY, YELLOW_ZONE, "R3", nullptr, 150, 15), 
+        Square(TERRITORY, YELLOW_ZONE, "R4", nullptr, 150, 15),
+        Square(TERRITORY, YELLOW_ZONE, "R5", nullptr, 150, 15), 
+        Square(TERRITORY, YELLOW_ZONE, "R6", nullptr, 150, 15),
+        Square(TERRITORY, YELLOW_ZONE, "R7", nullptr, 150, 15), 
+        Square(TERRITORY, YELLOW_ZONE, "R8", nullptr, 150, 15),
+        Square(TERRITORY, YELLOW_ZONE, "R9", nullptr, 150, 15),
+        Square(TERRITORY, YELLOW_ZONE, "R10", nullptr, 150, 15)
+},
+    infoText(font),  
+    actionText(font)
 
     Square(TERRITORY, R_NONE, "R1", nullptr, 150, 15), 
     Square(TERRITORY, R_NONE, "R2", nullptr, 150, 15),
@@ -56,15 +64,15 @@ Board::Board() : squares
   infoText(font),  
   actionText(font)
 {
-    if (!font.openFromFile("assets/arial.ttf")) {
-        std::cerr << "Error: No se pudo cargar assets/arial.ttf" << std::endl;
+    if (!font.openFromFile("assets/arial.ttf")) 
+    {
+        std::cerr << "Error cargando fuente arial.ttf" << std::endl;
     }
+    squares[11].shape.setFillColor(sf::Color(255, 255, 255, 220));
+    squares[22].shape.setFillColor(sf::Color(100, 100, 100));
+    squares[33].shape.setFillColor(sf::Color(255, 255, 255, 220));
 
-  // Configura los textos DESPUÉS de cargar la fuente
-    infoText.setFont(font);
-    actionText.setFont(font);
-    
-    configure_coordinates();
+    configure_coordinates(); 
 }
 
 // Mantenemos tu lógica de coordenadas intacta[cite: 6]
@@ -114,6 +122,17 @@ void Board::configure_coordinates()
         float y = squares[i-1].shape.getPosition().y + squares[i-1].shape.getSize().y + margin;
         squares[i].shape.setPosition({x, y});
     }
+    for (int i = 0; i < 44; i++) 
+    {
+        if (squares[i].label) 
+        {
+            sf::FloatRect sB = squares[i].shape.getGlobalBounds();
+            sf::FloatRect tB = squares[i].label->getLocalBounds();
+            
+            squares[i].label->setOrigin({tB.size.x / 2.f, tB.size.y / 2.f});
+            squares[i].label->setPosition({sB.position.x + (sB.size.x / 2.f),sB.position.y + (sB.size.y / 2.f)});
+        }
+    }
 }
 
 Square& Board::get_square(int i) { return squares[i]; }
@@ -122,82 +141,65 @@ void Board::draw_board(sf::RenderWindow &window) {
     for (int i = 0; i < 44; ++i) window.draw(squares[i].shape);
 }
 
-// Función auxiliar para regiones[cite: 6]
-std::string get_name_of_region_local(Region r) {
-    switch (r) {
-        case RED_ZONE:    return "Roja";
-        case BLUE_ZONE:   return "Azul";
-        case GREEN_ZONE:  return "Verde";
-        case YELLOW_ZONE: return "Amarilla";
-        case PURPLE_ZONE: return "Morada";
-        default:          return "Ninguna";
+void Board::draw_board(sf::RenderWindow &window) 
+{
+    for (int i = 0; i < 44; ++i) 
+    {
+        window.draw(squares[i].shape);
+        if (squares[i].label) 
+        {
+            window.draw(*(squares[i].label));
+        }
     }
 }
 
-// PANEL 1: INFORMACIÓN DE LA CASILLA (Cian)
 void Board::draw_square_info(sf::RenderWindow &window, int square_index) {
     Square& s = squares[square_index];
-    
-    std::string content = "--- PROPIEDAD ---\n";
-    content += "Nombre: " + s.name + "\n";
-    
+    std::string content = "--- PROPIEDAD ---\nNombre: " + s.name + "\n";
     if (s.type == TERRITORY) {
-    content += "Zona: " + get_name_of_region_local(s.region) + "\n";
-    content += "Precio: $" + std::to_string(s.value) + "\n";
-    // CORRECCIÓN: Añade la obtención del nombre del dueño[cite: 8]
-    content += (s.propietary == nullptr) ? "Estado: Disponible" : "Duenio: " + s.propietary->get_name();
+        content += "Precio: $" + std::to_string(s.value) + "\n";
+        content += (s.propietary == nullptr) ? "Estado: Disponible" : "Duenio: " + s.propietary->get_name();
     } else {
         content += "Tipo: Especial\n";
     }
-
     infoText.setString(content);
     infoText.setCharacterSize(16);
     infoText.setFillColor(sf::Color::White);
 
     sf::RectangleShape bg({250.f, 140.f});
-    bg.setFillColor(sf::Color(0, 0, 0, 200)); 
+    bg.setFillColor(sf::Color(0, 0, 0, 150)); 
     bg.setOutlineThickness(2);
-    bg.setOutlineColor(sf::Color::White); // Estilo neón Cian[cite: 6]
-    
+    bg.setOutlineColor(sf::Color::White); 
     bg.setPosition({20.f, 50.f}); 
     infoText.setPosition({35.f, 65.f});
-
     window.draw(bg);
     window.draw(infoText);
 }
 
-// PANEL 2: INFORMACIÓN DE DADOS Y JUGADOR (Magenta)[cite: 7]
 void Board::draw_player_action(sf::RenderWindow &window, std::string message) {
     actionText.setString(">>> EVENTO <<<\n" + message);
     actionText.setCharacterSize(20);
-    actionText.setFillColor(sf::Color::White); // Resalta el texto[cite: 6]
-
+    actionText.setFillColor(sf::Color::White);
     sf::RectangleShape bg({250.f, 90.f});
-    bg.setFillColor(sf::Color(0, 0, 0, 200));
+    bg.setFillColor(sf::Color(0, 0, 0, 150));
     bg.setOutlineThickness(2);
-    bg.setOutlineColor(sf::Color::White); // Estilo neón Magenta[cite: 6]
-    
+    bg.setOutlineColor(sf::Color::White); 
     bg.setPosition({20.f, 205.f}); 
     actionText.setPosition({35.f, 220.f});
-
     window.draw(bg);
     window.draw(actionText);
 }
+
 void Board::draw_purchase_panel(sf::RenderWindow &window, std::string square_name, int price) {
-  // Fondo en el centro (Ventana de 1200x800)
     sf::RectangleShape bg({400.f, 200.f});
-    bg.setFillColor(sf::Color(0, 0, 0, 230));
+    bg.setFillColor(sf::Color(0, 0, 0, 200));
     bg.setOutlineThickness(3);
     bg.setOutlineColor(sf::Color::White);
-    
-    // En SFML 3, setOrigin también puede usar size si es un shape
     bg.setOrigin({200.f, 100.f});
     bg.setPosition({600.f, 400.f});
 
-    sf::Text text(font, "¿Deseas adquirir " + square_name + "?\nPrecio: $" + std::to_string(price) + "\n\n[S] Si      [N] No", 20);
+    sf::Text text(font, " Deseas adquirir " + square_name + "?\nPrecio: $" + std::to_string(price) + "\n\n[S] Si      [N] No", 20);
     text.setFillColor(sf::Color::White);
-
-    // CORRECCIÓN PARA SFML 3: Usamos size.x y size.y
     sf::FloatRect textBounds = text.getLocalBounds();
     text.setOrigin({textBounds.size.x / 2.f, textBounds.size.y / 2.f}); 
     text.setPosition({600.f, 400.f});

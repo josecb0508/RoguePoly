@@ -9,18 +9,15 @@ int GameMaster::roll_dice()
     static std::random_device rd;
     static std::mt19937 gen(rd());
     static std::uniform_int_distribution<> d12(1, 12);
-    return d12(gen); 
+    int result = d12(gen);
+    return result;
 }
 
-// Lógica de turno: Mueve al jugador y devuelve la suma para el panel del tablero
 int GameMaster::play_turn(Player& p)
 {
-    int suma_total = roll_dice(); // Usamos roll_dice para consistencia
-
-    int nueva_posicion = (p.get_current_square() + suma_total) % 44;
-    p.set_current_square(nueva_posicion);
-
-    return suma_total;
+    int result = roll_dice();
+    p.move(result);
+    return result;
 }
 
 // Algoritmo para ordenar los resultados del sorteo
@@ -40,7 +37,6 @@ void insertion_sort(std::vector<T>& c)
     }
 }
 
-// Sorteo inicial: Registra todo en el log para mostrarlo en la pantalla neón
 std::string GameMaster::set_turn_player(std::vector<Player>& players)
 {
     std::vector<std::pair<size_t, int>> player_rolls;
@@ -93,8 +89,35 @@ std::string GameMaster::set_turn_player(std::vector<Player>& players)
 // Lógica de propiedades (vaciada para evitar bloqueos de terminal)
 void GameMaster::give_properties(Player& p, Square& s)
 {
-    // Para no dañar los paneles del tablero, aquí solo registramos en consola
-    // La decisión de compra se maneja visualmente desde el main.cpp
-    (void)p; 
-    (void)s;
+/*   char choice;
+    if(s.type == TERRITORY)
+    {
+        if (s.type == TERRITORY) 
+        {
+            if (s.propietary == nullptr) 
+            {
+                char choice = 'n'; 
+                std::cout << "¿Deseas adquirir " << s.name << "? (y/n): ";
+                std::cin >> choice;
+
+            if (choice == 'y' || choice == 'Y') 
+            {
+                s.propietary = &p;
+                p.add_property(&s);
+                std::cout << "Propiedad adquirida." << std::endl;
+            }
+            else
+            {
+                std::cout << "No compras la casilla. La casilla sigue disponible." << std::endl;
+            }
+        } 
+        else 
+        {
+            if (s.propietary != &p) 
+            {
+                std::cout << "Esta casilla ya tiene dueño." << std::endl;
+            }
+        }
+        }
+    }*/
 }

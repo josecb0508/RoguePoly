@@ -6,21 +6,19 @@
 #include <vector>
 #include <random>
 #include <iostream>
+#include <sstream>
 #include <SFML/Graphics.hpp>
+
 
 class GameMaster
 {
     public:
         int roll_dice();
-
         int play_turn(Player& p);
         std::vector<Player> players;
         std::string set_turn_player(std::vector<Player>& players);
-
         void give_properties(Player&p, Square& s);
-    private:
-        // Cambiamos el nombre a players_list para evitar cualquier conflicto futuro[cite: 10]
-        std::vector<Player> players_list;
+
 };
 
 #endif

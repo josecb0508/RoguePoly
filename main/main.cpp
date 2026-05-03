@@ -4,7 +4,6 @@
 #include "GameMaster.hpp"
 #include "Menu.hpp"
 
-// Estados del juego
 enum class GameState { MENU, SORTEO, PLAYING, OPTIONS };
 
 int main() 
@@ -18,7 +17,6 @@ int main()
         std::cerr << "Error: No se pudo cargar assets/arial.ttf" << std::endl;
     }
 
-    // Inicialización de componentes[cite: 8]
     GameState currentState = GameState::MENU;
     Menu menu(1200.f, 800.f);
     Board board;
@@ -29,7 +27,6 @@ int main()
     int player_to_show = 0; 
     std::string last_action_msg = "¡Bienvenidos a Roguepoly!";
 
-    // Lógica para el sistema de adquisición de propiedades
     bool waitingForPurchase = false;
     int squareToBuyIdx = -1;
 
@@ -42,7 +39,6 @@ int main()
 
             if (const auto* keyPressed = event->getIf<sf::Event::KeyPressed>()) 
             {
-                // LÓGICA DEL MENÚ
                 if (currentState == GameState::MENU) 
                 {
                     if (keyPressed->code == sf::Keyboard::Key::Up) menu.moveUp();
@@ -70,13 +66,11 @@ int main()
                                 p.set_current_square(0);
                                 players.push_back(p);
                             }
-                            // Realizar sorteo e ir a pantalla de resultados[cite: 9]
                             last_action_msg = game_master.set_turn_player(players); 
                             currentState = GameState::SORTEO; 
                         }
                     }
                 }
-                // LÓGICA DEL SORTEO
                 else if (currentState == GameState::SORTEO) 
                 {
                     if (keyPressed->code == sf::Keyboard::Key::Enter) 
@@ -85,16 +79,14 @@ int main()
                         currentState = GameState::PLAYING;
                     }
                 }
-                // LÓGICA DEL JUEGO
                 else if (currentState == GameState::PLAYING) 
                 {
-                    // Si estamos esperando decisión de compra, bloqueamos movimiento
                     if (waitingForPurchase) 
                     {
                         Player& p_actual = players[current_turn_index];
                         Square& s = board.get_square(squareToBuyIdx);
 
-                        if (keyPressed->code == sf::Keyboard::Key::S) // SI compra
+                        if (keyPressed->code == sf::Keyboard::Key::S) 
                         {
                             s.propietary = &p_actual; 
                             p_actual.add_property(&s); 
@@ -102,7 +94,7 @@ int main()
                             waitingForPurchase = false;
                             current_turn_index = (current_turn_index + 1) % (int)players.size();
                         }
-                        else if (keyPressed->code == sf::Keyboard::Key::N) // NO compra
+                        else if (keyPressed->code == sf::Keyboard::Key::N)
                         {
                             last_action_msg = "Compra rechazada.";
                             waitingForPurchase = false;
@@ -114,7 +106,7 @@ int main()
                         if (!players.empty()) 
                         {
                             Player& p_actual = players[current_turn_index];
-                            int suma = game_master.play_turn(p_actual); // Lanza dados y mueve[cite: 9]
+                            int suma = game_master.play_turn(p_actual);
                             p_actual.update_position(); 
                             player_to_show = current_turn_index;
                             
@@ -123,7 +115,6 @@ int main()
                             int idx = p_actual.get_current_square();
                             Square& s = board.get_square(idx);
 
-                            // Verificar si la casilla es comprable[cite: 7]
                             if (s.type == SquareType::TERRITORY && s.propietary == nullptr) 
                             {
                                 waitingForPurchase = true;
@@ -145,8 +136,7 @@ int main()
             }
         }
 
-        // --- 2. RENDERIZADO ---
-        window.clear(sf::Color(30, 30, 30));
+        window.clear(sf::Color(20, 20, 45));
 
         if (currentState == GameState::MENU) 
         {
@@ -161,14 +151,13 @@ int main()
             title.setPosition({280.f, 50.f});
             window.draw(title);
 
-            // Muestra el log detallado del sorteo[cite: 9]
             sf::Text results(font, last_action_msg, 24);
             results.setFillColor(sf::Color::White);
             results.setPosition({300.f, 180.f});
             window.draw(results);
 
             sf::Text hint(font, "Presiona ENTER para entrar al tablero", 20);
-            hint.setFillColor(sf::Color::Cyan);
+            hint.setFillColor(sf::Color::Yellow);
             hint.setPosition({420.f, 700.f});
             window.draw(hint);
         }
@@ -181,11 +170,9 @@ int main()
             {
                 int idxMostrada = players[player_to_show].get_current_square();
                 
-                // Paneles laterales a la izquierda (Blancos)[cite: 8]
                 board.draw_square_info(window, idxMostrada); 
                 board.draw_player_action(window, last_action_msg); 
 
-                // Si hay compra pendiente, dibujar panel central[cite: 8]
                 if (waitingForPurchase) 
                 {
                     Square& s = board.get_square(squareToBuyIdx);

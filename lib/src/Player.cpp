@@ -73,7 +73,7 @@ void Player::set_current_square(int square_index)
 void Player::set_color(sf::Color color)
 {
     circle.setFillColor(color);
-    update_position(); // Actualiza posición al cambiar color[cite: 9]
+    update_position();
 }
 
 void Player::set_order(int o)
