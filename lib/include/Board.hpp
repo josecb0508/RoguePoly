@@ -21,10 +21,4 @@ class Board
         sf::Text actionText;
 
 };
-
-    private:
-      sf::Font font;       // Primero la fuente
-      sf::Text infoText;   // Luego los textos que la usan
-      sf::Text actionText;
-};
 #endif

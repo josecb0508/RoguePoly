@@ -50,19 +50,6 @@ Board::Board() : squares
     infoText(font),  
     actionText(font)
 
-    Square(TERRITORY, R_NONE, "R1", nullptr, 150, 15), 
-    Square(TERRITORY, R_NONE, "R2", nullptr, 150, 15),
-    Square(TERRITORY, R_NONE, "R3", nullptr, 150, 15), 
-    Square(TERRITORY, R_NONE, "R4", nullptr, 150, 15),
-    Square(TERRITORY, R_NONE, "R5", nullptr, 150, 15), 
-    Square(TERRITORY, R_NONE, "R6", nullptr, 150, 15),
-    Square(TERRITORY, R_NONE, "R7", nullptr, 150, 15), 
-    Square(TERRITORY, R_NONE, "R8", nullptr, 150, 15),
-    Square(TERRITORY, R_NONE, "R9", nullptr, 150, 15),
-    Square(TERRITORY, R_NONE, "R10", nullptr, 150, 15)
-},
-  infoText(font),  
-  actionText(font)
 {
     if (!font.openFromFile("assets/arial.ttf")) 
     {
@@ -75,28 +62,36 @@ Board::Board() : squares
     configure_coordinates(); 
 }
 
-// Mantenemos tu lógica de coordenadas intacta[cite: 6]
 void Board::configure_coordinates() 
 {
     const float margin = 2.f;
     const float init_x = 300.f;   
     const float init_y = 700.f;  
     
-    for (int i = 0; i <= 11; i++) squares[i].orientate(true);
+    for (int i = 0; i <= 11; i++) 
+    {
+        squares[i].orientate(true);
+    }
 
     float width_row = 0;
-    for (int i = 0; i <= 11; i++) width_row += squares[i].shape.getSize().x + margin;
+    for (int i = 0; i <= 11; i++)
+    { 
+        width_row += squares[i].shape.getSize().x + margin;
+    }
     
     const float right = init_x + width_row - margin; 
+
     squares[0].shape.setPosition({right - squares[0].shape.getSize().x, init_y - squares[0].shape.getSize().y});
     
-    for (int i = 1; i <= 11; i++) {
+    for (int i = 1; i <= 11; i++) 
+    {
         float x = squares[i-1].shape.getPosition().x - squares[i].shape.getSize().x - margin;
         float y = init_y - squares[i].shape.getSize().y;
         squares[i].shape.setPosition({x, y}); 
     }
 
-    for (int i = 12; i <= 21; i++) {
+    for (int i = 12; i <= 21; i++) 
+    {
         squares[i].orientate(false); 
         float x = squares[11].shape.getPosition().x; 
         float y = squares[i-1].shape.getPosition().y - squares[i].shape.getSize().y - margin;
@@ -106,7 +101,8 @@ void Board::configure_coordinates()
     squares[22].orientate(true);
     squares[22].shape.setPosition({squares[11].shape.getPosition().x,squares[21].shape.getPosition().y - squares[22].shape.getSize().y - margin});
 
-    for (int i = 23; i <= 32; i++) {
+    for (int i = 23; i <= 32; i++) 
+    {
         squares[i].orientate(true);
         float x = squares[i-1].shape.getPosition().x + squares[i-1].shape.getSize().x + margin;
         float y = squares[22].shape.getPosition().y;
@@ -116,7 +112,8 @@ void Board::configure_coordinates()
     squares[33].orientate(true);
     squares[33].shape.setPosition({squares[32].shape.getPosition().x + squares[32].shape.getSize().x + margin, squares[22].shape.getPosition().y});
 
-    for (int i = 34; i <= 43; i++) {
+    for (int i = 34; i <= 43; i++) 
+    {
         squares[i].orientate(false);
         float x = squares[0].shape.getPosition().x; 
         float y = squares[i-1].shape.getPosition().y + squares[i-1].shape.getSize().y + margin;
@@ -135,10 +132,9 @@ void Board::configure_coordinates()
     }
 }
 
-Square& Board::get_square(int i) { return squares[i]; }
-
-void Board::draw_board(sf::RenderWindow &window) {
-    for (int i = 0; i < 44; ++i) window.draw(squares[i].shape);
+Square& Board::get_square(int i)
+{
+    return squares[i];
 }
 
 void Board::draw_board(sf::RenderWindow &window) 
