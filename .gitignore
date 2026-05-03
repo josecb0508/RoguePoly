@@ -1,0 +1,9 @@
+# Ejecutables
+bin/
+*.exe
+
+# Objetos de compilación
+lib/obj/*.o
+
+# Archivos temporales de VS Code
+.vscode/
