@@ -84,7 +84,7 @@ int main()
                         Player& p_actual = players[current_turn_index];
                         Square& s = board.get_square(squareToBuyIdx);
 
-                        if (keyPressed->code == sf::Keyboard::Key::S) // SI compra
+                        if (keyPressed->code == sf::Keyboard::Key::S) 
                         {
                             s.propietary = &p_actual; 
                             p_actual.add_property(&s); 
@@ -92,7 +92,7 @@ int main()
                             waitingForPurchase = false;
                             current_turn_index = (current_turn_index + 1) % (int)players.size();
                         }
-                        else if (keyPressed->code == sf::Keyboard::Key::N) // NO compra
+                        else if (keyPressed->code == sf::Keyboard::Key::N)
                         {
                             last_action_msg = "Compra rechazada.";
                             waitingForPurchase = false;
