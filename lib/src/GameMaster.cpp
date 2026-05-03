@@ -6,14 +6,14 @@ int GameMaster::roll_dice()
     static std::mt19937 gen(rd());
     static std::uniform_int_distribution<> d12(1, 12);
     int result = d12(gen);
-    std::cout << "Dado: " << result << std::endl;
     return result;
 }
 
-void GameMaster::play_turn(Player& p)
+int GameMaster::play_turn(Player& p)
 {
     int result = roll_dice();
     p.move(result);
+    return result;
 }
 
 
@@ -33,9 +33,10 @@ void insertion_sort(std::vector<T>& c)
     }
 }
 
-void GameMaster::set_turn_player(std::vector<Player>& players)
+std::string GameMaster::set_turn_player(std::vector<Player>& players)
 {
     std::vector<std::pair<size_t, int>> player_rolls;
+    std::stringstream log; 
 
     for (size_t i = 0; i < players.size(); ++i)
     {
@@ -54,11 +55,7 @@ void GameMaster::set_turn_player(std::vector<Player>& players)
                     found_collision = true;
                 }
             }
-
-            if (!found_collision) 
-            {
-                number_repeated = false; 
-            }
+            if (!found_collision) number_repeated = false; 
         }
         player_rolls.push_back({i, current_roll});
     }
@@ -66,7 +63,7 @@ void GameMaster::set_turn_player(std::vector<Player>& players)
     insertion_sort(player_rolls);
 
     std::vector<Player> sorted_players;
-    std::cout << "\n=== RESULTADOS DEL SORTEO ===" << std::endl;
+    log << "\n=== RESULTADOS DEL SORTEO ===\n";
 
     for (size_t i = 0; i < player_rolls.size(); ++i) 
     {
@@ -75,18 +72,19 @@ void GameMaster::set_turn_player(std::vector<Player>& players)
         players[original_index].set_name(final_name);
         players[original_index].set_order((int)i);
         
-        std::cout << final_name << " saco: " << player_rolls[i].second << " (Posicion " << i+1 << ")" << std::endl;
-        
+        log << final_name << " saco: " << player_rolls[i].second << " (Posicion " << i+1 << ")\n";
         sorted_players.push_back(players[original_index]);
     }
 
     players = sorted_players; 
-    std::cout << "=============================\n" << std::endl;
+    log << "=============================\n";
+
+    return log.str(); // Se envía al main para el panel visual
 }
 
 void GameMaster::give_properties(Player&p, Square& s)
 {
-    char choice;
+/*   char choice;
     if(s.type == TERRITORY)
     {
         if (s.type == TERRITORY) 
@@ -116,5 +114,5 @@ void GameMaster::give_properties(Player&p, Square& s)
             }
         }
         }
-    }
+    }*/
 }

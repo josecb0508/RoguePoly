@@ -20,31 +20,39 @@ void Player::move(int steps)
 
 void Player::update_position() 
 {
-    sf::Vector2f basePos = board_squares[current_square_].shape.getPosition();
+    // Obtenemos la referencia a la casilla actual
+    sf::RectangleShape& currentShape = board_squares[current_square_].shape;
     
-    sf::Vector2f centerPos = basePos + sf::Vector2f(40.f, 40.f);
+    sf::Vector2f basePos = currentShape.getPosition();
+    sf::Vector2f size = currentShape.getSize(); // Soporta tamaños 80x80 o 50x80
+
+    // Centro dinámico basado en el tamaño de la casilla
+    sf::Vector2f centerPos = basePos + sf::Vector2f(size.x / 2.f, size.y / 2.f);
     
     float radius = circle.getRadius();
     circle.setOrigin({radius, radius});
 
-    float offset = 20.0f;
-    
+    // Desplazamiento para que los 4 colores se repartan en las esquinas
+    float offsetX = size.x * 0.25f;
+    float offsetY = size.y * 0.25f;
+
     sf::Color color = circle.getFillColor();
+
     if (color == sf::Color::Red) 
     {
-        circle.setPosition({centerPos.x - offset, centerPos.y - offset});
+        circle.setPosition({centerPos.x - offsetX, centerPos.y - offsetY});
     } 
     else if (color == sf::Color::Blue) 
     {
-        circle.setPosition({centerPos.x - offset, centerPos.y - offset});
+        circle.setPosition({centerPos.x + offsetX, centerPos.y - offsetY});
     } 
     else if (color == sf::Color::Green) 
     {
-        circle.setPosition({centerPos.x - offset, centerPos.y - offset});
+        circle.setPosition({centerPos.x - offsetX, centerPos.y + offsetY});
     } 
     else if (color == sf::Color::Yellow) 
     {
-        circle.setPosition({centerPos.x - offset, centerPos.y - offset});
+        circle.setPosition({centerPos.x + offsetX, centerPos.y + offsetY});
     } 
     else 
     {
@@ -66,6 +74,7 @@ void Player::set_current_square(int square_index)
 void Player::set_color(sf::Color color)
 {
     circle.setFillColor(color);
+    update_position();
 }
 
 void Player::set_order(int o)

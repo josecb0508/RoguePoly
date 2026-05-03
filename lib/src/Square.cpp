@@ -4,8 +4,8 @@ Square::Square() : width(0), height(0), type(NONE), region(R_NONE), name("Vacio"
 {
     shape.setSize(sf::Vector2f(width, height));
     shape.setFillColor(sf::Color::White);
-    shape.setOutlineThickness(2.f);
-    shape.setOutlineColor(sf::Color::Black);
+    shape.setOutlineThickness(-1.0f);
+    shape.setOutlineColor(sf::Color(10, 10, 30));
 }
 
 Square::Square(SquareType t, Region r, std::string n, Player* p, int v, int l) : type(t), region(r), name(n), propietary(p), value(v), level(l)
@@ -25,8 +25,8 @@ Square::Square(SquareType t, Region r, std::string n, Player* p, int v, int l) :
     }
 
     shape.setSize(sf::Vector2f(width, height));
-    shape.setOutlineThickness(2.f);
-    shape.setOutlineColor(sf::Color::Black);
+    shape.setOutlineThickness(-1.0f);
+    shape.setOutlineColor(sf::Color(10, 10, 30));
 
     switch (type)
     {

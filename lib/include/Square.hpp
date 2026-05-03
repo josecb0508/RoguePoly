@@ -34,6 +34,7 @@ class Square
     int value;
     int level;
     sf::RectangleShape shape;
+    std::unique_ptr<sf::Text> label;
     sf::Vector2f get_position();
     void orientate(bool horizontal);
     void set_size(int w, int h);
