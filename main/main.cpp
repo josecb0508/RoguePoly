@@ -146,7 +146,11 @@ int main()
         }
 
         // --- 2. RENDERIZADO ---
+<<<<<<< HEAD
         window.clear(sf::Color(20, 20, 45));
+=======
+        window.clear(sf::Color(30, 30, 30));
+>>>>>>> bace37cc8891b3722227d19888758f579e191370
 
         if (currentState == GameState::MENU) 
         {
@@ -168,7 +172,11 @@ int main()
             window.draw(results);
 
             sf::Text hint(font, "Presiona ENTER para entrar al tablero", 20);
+<<<<<<< HEAD
             hint.setFillColor(sf::Color::Yellow);
+=======
+            hint.setFillColor(sf::Color::Cyan);
+>>>>>>> bace37cc8891b3722227d19888758f579e191370
             hint.setPosition({420.f, 700.f});
             window.draw(hint);
         }
