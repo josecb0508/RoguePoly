@@ -14,39 +14,31 @@ Player::Player(Square (&board_ref)[44]) : current_square_(0), board_squares(boar
 void Player::move(int steps) 
 {
     current_square_ = (current_square_ + steps) % 44;
-
     update_position();
 }
 
 void Player::update_position() 
 {
-<<<<<<< HEAD
+    // Obtenemos la referencia a la casilla actual
     sf::RectangleShape& currentShape = board_squares[current_square_].shape;
     
     sf::Vector2f basePos = currentShape.getPosition();
-    sf::Vector2f size = currentShape.getSize(); // Obtenemos el tamaño real (80x80 o 50x80)
+    sf::Vector2f size = currentShape.getSize(); // Soporta tamaños 80x80 o 50x80
 
+    // Centro dinámico basado en el tamaño de la casilla
     sf::Vector2f centerPos = basePos + sf::Vector2f(size.x / 2.f, size.y / 2.f);
-=======
-    sf::Vector2f basePos = board_squares[current_square_].shape.getPosition();
-    
-    sf::Vector2f centerPos = basePos + sf::Vector2f(40.f, 40.f);
->>>>>>> 7dc7782560eabf7bc86104da79f534ca49187d00
     
     float radius = circle.getRadius();
     circle.setOrigin({radius, radius});
 
-<<<<<<< HEAD
+    // Desplazamiento para que los 4 colores se repartan en las esquinas
     float offsetX = size.x * 0.25f;
     float offsetY = size.y * 0.25f;
-=======
-    float offset = 20.0f;
->>>>>>> 7dc7782560eabf7bc86104da79f534ca49187d00
-    
+
     sf::Color color = circle.getFillColor();
+
     if (color == sf::Color::Red) 
     {
-<<<<<<< HEAD
         circle.setPosition({centerPos.x - offsetX, centerPos.y - offsetY});
     } 
     else if (color == sf::Color::Blue) 
@@ -60,21 +52,6 @@ void Player::update_position()
     else if (color == sf::Color::Yellow) 
     {
         circle.setPosition({centerPos.x + offsetX, centerPos.y + offsetY});
-=======
-        circle.setPosition({centerPos.x - offset, centerPos.y - offset});
-    } 
-    else if (color == sf::Color::Blue) 
-    {
-        circle.setPosition({centerPos.x - offset, centerPos.y - offset});
-    } 
-    else if (color == sf::Color::Green) 
-    {
-        circle.setPosition({centerPos.x - offset, centerPos.y - offset});
-    } 
-    else if (color == sf::Color::Yellow) 
-    {
-        circle.setPosition({centerPos.x - offset, centerPos.y - offset});
->>>>>>> 7dc7782560eabf7bc86104da79f534ca49187d00
     } 
     else 
     {
@@ -96,6 +73,7 @@ void Player::set_current_square(int square_index)
 void Player::set_color(sf::Color color)
 {
     circle.setFillColor(color);
+    update_position(); // Actualiza posición al cambiar color[cite: 9]
 }
 
 void Player::set_order(int o)

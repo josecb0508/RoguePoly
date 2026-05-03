@@ -3,7 +3,7 @@
 #include <iostream> // PARA EL ERROR DE cout
 #include <random>
 
-
+// Generador de dados centralizado
 int GameMaster::roll_dice()
 {
     static std::random_device rd;
@@ -12,11 +12,10 @@ int GameMaster::roll_dice()
     return d12(gen); 
 }
 
+// Lógica de turno: Mueve al jugador y devuelve la suma para el panel del tablero
 int GameMaster::play_turn(Player& p)
 {
-    int dado1 = (rand() % 6) + 1;
-    int dado2 = (rand() % 6) + 1;
-    int suma_total = dado1 + dado2;
+    int suma_total = roll_dice(); // Usamos roll_dice para consistencia
 
     int nueva_posicion = (p.get_current_square() + suma_total) % 44;
     p.set_current_square(nueva_posicion);
@@ -24,19 +23,7 @@ int GameMaster::play_turn(Player& p)
     return suma_total;
 }
 
-
-    int result = d12(gen);
-    std::cout << "Dado: " << result << std::endl;
-    return result;
-}
-
-void GameMaster::play_turn(Player& p)
-{
-    int result = roll_dice();
-    p.move(result);
-}
-
-
+// Algoritmo para ordenar los resultados del sorteo
 template <typename T>
 void insertion_sort(std::vector<T>& c)
 {
@@ -53,17 +40,11 @@ void insertion_sort(std::vector<T>& c)
     }
 }
 
-
-// CORRECCIÓN: Cambiado de void a std::string para coincidir con el .hpp
+// Sorteo inicial: Registra todo en el log para mostrarlo en la pantalla neón
 std::string GameMaster::set_turn_player(std::vector<Player>& players)
 {
     std::vector<std::pair<size_t, int>> player_rolls;
-    std::stringstream log; // Ahora sí funcionará por el #include <sstream>
-
-void GameMaster::set_turn_player(std::vector<Player>& players)
-{
-    std::vector<std::pair<size_t, int>> player_rolls;
-
+    std::stringstream log; 
 
     for (size_t i = 0; i < players.size(); ++i)
     {
@@ -82,11 +63,7 @@ void GameMaster::set_turn_player(std::vector<Player>& players)
                     found_collision = true;
                 }
             }
-
-            if (!found_collision) 
-            {
-                number_repeated = false; 
-            }
+            if (!found_collision) number_repeated = false; 
         }
         player_rolls.push_back({i, current_roll});
     }
@@ -96,9 +73,6 @@ void GameMaster::set_turn_player(std::vector<Player>& players)
     std::vector<Player> sorted_players;
     log << "\n=== RESULTADOS DEL SORTEO ===\n";
 
-    std::cout << "\n=== RESULTADOS DEL SORTEO ===" << std::endl;
-
-
     for (size_t i = 0; i < player_rolls.size(); ++i) 
     {
         size_t original_index = player_rolls[i].first;
@@ -106,59 +80,21 @@ void GameMaster::set_turn_player(std::vector<Player>& players)
         players[original_index].set_name(final_name);
         players[original_index].set_order((int)i);
         
-
         log << final_name << " saco: " << player_rolls[i].second << " (Posicion " << i+1 << ")\n";
-
-        std::cout << final_name << " saco: " << player_rolls[i].second << " (Posicion " << i+1 << ")" << std::endl;
-
         sorted_players.push_back(players[original_index]);
     }
 
     players = sorted_players; 
     log << "=============================\n";
 
-    return log.str(); // Devolvemos el string al main
+    return log.str(); // Se envía al main para el panel visual
 }
 
+// Lógica de propiedades (vaciada para evitar bloqueos de terminal)
 void GameMaster::give_properties(Player& p, Square& s)
 {
-    // Función vacía por ahora para evitar el bloqueo de cin
-    (void)p; // Evita el warning de "unused parameter"
+    // Para no dañar los paneles del tablero, aquí solo registramos en consola
+    // La decisión de compra se maneja visualmente desde el main.cpp
+    (void)p; 
     (void)s;
-    std::cout << "=============================\n" << std::endl;
-}
-
-void GameMaster::give_properties(Player&p, Square& s)
-{
-    char choice;
-    if(s.type == TERRITORY)
-    {
-        if (s.type == TERRITORY) 
-        {
-            if (s.propietary == nullptr) 
-            {
-                char choice = 'n'; 
-                std::cout << "¿Deseas adquirir " << s.name << "? (y/n): ";
-                std::cin >> choice;
-
-            if (choice == 'y' || choice == 'Y') 
-            {
-                s.propietary = &p;
-                p.add_property(&s);
-                std::cout << "Propiedad adquirida." << std::endl;
-            }
-            else
-            {
-                std::cout << "No compras la casilla. La casilla sigue disponible." << std::endl;
-            }
-        } 
-        else 
-        {
-            if (s.propietary != &p) 
-            {
-                std::cout << "Esta casilla ya tiene dueño." << std::endl;
-            }
-        }
-        }
-    }
 }

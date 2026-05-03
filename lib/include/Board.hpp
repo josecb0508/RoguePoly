@@ -6,25 +6,21 @@
 class Board
 {
     public:
-
+       // Atributos y Métodos Públicos
        Square squares[44];
        void configure_coordinates();
        Square& get_square(int i);
        Board();
        void draw_board(sf::RenderWindow &window);
-       void draw_info_panel(sf::RenderWindow &window, int square_index, std::string message);
+       
+       // NUEVOS PANELES SEPARADOS
+       void draw_square_info(sf::RenderWindow &window, int square_index);
+       void draw_player_action(sf::RenderWindow &window, std::string message);
+       void draw_purchase_panel(sf::RenderWindow &window, std::string square_name, int price);
 
-        sf::Font font;
-        sf::Text infoText;
-        std::string gameLog; // Nueva variable para mensajes del juego
-
-    Square squares[44];
-    void configure_coordinates();
-    Square& get_square(int i);
-    public:
-    Board();
-    void draw_board(sf::RenderWindow &window);
-
+    private:
+      sf::Font font;       // Primero la fuente
+      sf::Text infoText;   // Luego los textos que la usan
+      sf::Text actionText;
 };
-
 #endif

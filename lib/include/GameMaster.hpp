@@ -17,11 +17,10 @@ class GameMaster
         std::vector<Player> players;
         std::string set_turn_player(std::vector<Player>& players);
 
-        void play_turn(Player& p);
-        std::vector<Player> players;
-        void set_turn_player(std::vector<Player>& players);
-
         void give_properties(Player&p, Square& s);
+    private:
+        // Cambiamos el nombre a players_list para evitar cualquier conflicto futuro[cite: 10]
+        std::vector<Player> players_list;
 };
 
 #endif

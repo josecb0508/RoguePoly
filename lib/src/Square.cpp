@@ -1,13 +1,45 @@
 #include "Square.hpp"
 
+<<<<<<< HEAD
+// Constructor por defecto: Inicializa una casilla vacía
+Square::Square() : 
+    width(0), 
+    height(0), 
+    type(NONE), 
+    region(R_NONE), 
+    name("Vacio"), 
+    propietary(nullptr), 
+    value(0), 
+    level(0) 
+{
+    // El puntero 'label' se inicializa automáticamente como nullptr[cite: 6]
+    shape.setSize(sf::Vector2f(0.f, 0.f));
+=======
 Square::Square() : width(0), height(0), type(NONE), region(R_NONE), name("Vacio"), propietary(nullptr), value(0), level(0) 
 {
     shape.setSize(sf::Vector2f(width, height));
+>>>>>>> bace37cc8891b3722227d19888758f579e191370
     shape.setFillColor(sf::Color::White);
     shape.setOutlineThickness(2.f);
     shape.setOutlineColor(sf::Color::Black);
 }
 
+<<<<<<< HEAD
+// Constructor parametrizado: Configura la casilla según su tipo y región
+Square::Square(SquareType t, Region r, std::string n, Player* p, int v, int l) : 
+    type(t), 
+    region(r), 
+    name(n), 
+    propietary(p), 
+    value(v), 
+    level(l) 
+{
+    // Definición de dimensiones básicas[cite: 4]
+    if (type == START || type == FREE) 
+    {
+        width = 80;
+        height = 80;
+=======
 Square::Square(SquareType t, Region r, std::string n, Player* p, int v, int l) : type(t), region(r), name(n), propietary(p), value(v), level(l)
 {
     
@@ -17,6 +49,7 @@ Square::Square(SquareType t, Region r, std::string n, Player* p, int v, int l) :
         height = 80;
         level = 0;
         value = 0;
+>>>>>>> bace37cc8891b3722227d19888758f579e191370
     } 
     else 
     {
@@ -24,24 +57,48 @@ Square::Square(SquareType t, Region r, std::string n, Player* p, int v, int l) :
         height = 80;
     }
 
+<<<<<<< HEAD
+    shape.setSize(sf::Vector2f(static_cast<float>(width), static_cast<float>(height)));
+    shape.setOutlineThickness(2.f);
+    shape.setOutlineColor(sf::Color::Black);
+
+    // Asignación de colores según el tipo y zona[cite: 4]
+=======
     shape.setSize(sf::Vector2f(width, height));
     shape.setOutlineThickness(2.f);
     shape.setOutlineColor(sf::Color::Black);
 
+>>>>>>> bace37cc8891b3722227d19888758f579e191370
     switch (type)
     {
         case START:
             shape.setFillColor(sf::Color::Cyan);
             break;
         case FREE:
+<<<<<<< HEAD
+            shape.setFillColor(sf::Color(255, 165, 0)); // Naranja
+=======
             shape.setFillColor(sf::Color(255, 165, 0));
             break;
         case NONE:
             shape.setFillColor(sf::Color::White);
+>>>>>>> bace37cc8891b3722227d19888758f579e191370
             break;
         case TERRITORY:
             switch (region)
             {
+<<<<<<< HEAD
+                case RED_ZONE:    shape.setFillColor(sf::Color::Red); break;
+                case BLUE_ZONE:   shape.setFillColor(sf::Color::Blue); break;
+                case GREEN_ZONE:  shape.setFillColor(sf::Color::Green); break;
+                case YELLOW_ZONE: shape.setFillColor(sf::Color::Yellow); break;
+                case PURPLE_ZONE: shape.setFillColor(sf::Color(128, 0, 128)); break;
+                default:          shape.setFillColor(sf::Color::White); break;
+            }
+            break;
+        default:
+            shape.setFillColor(sf::Color::White);
+=======
                 case RED_ZONE:    
                     shape.setFillColor(sf::Color::Red); 
                     break;
@@ -63,6 +120,7 @@ Square::Square(SquareType t, Region r, std::string n, Player* p, int v, int l) :
                     break;
             }
         default:
+>>>>>>> bace37cc8891b3722227d19888758f579e191370
             break;
     }
 }
@@ -71,7 +129,11 @@ void Square::set_size(int w, int h)
 {
     width = w;
     height = h;
+<<<<<<< HEAD
+    shape.setSize(sf::Vector2f(static_cast<float>(width), static_cast<float>(height)));
+=======
     shape.setSize(sf::Vector2f(width, height));
+>>>>>>> bace37cc8891b3722227d19888758f579e191370
 }
 
 sf::Vector2f Square::get_position()
@@ -93,6 +155,17 @@ void Square::orientate(bool horizontal)
 
 void Square::print_info_square(int position)
 {
+<<<<<<< HEAD
+    std::cout << "Nombre: " << name << " | Posicion: " << position << std::endl;
+    if (type == TERRITORY)
+    {
+        std::cout << " Valor: " << value;
+        if (propietary != nullptr) 
+            std::cout << " | Dueño: " << propietary->get_name();
+        else 
+            std::cout << " | Sin dueño";
+        std::cout << std::endl;
+=======
     std::cout <<"Nombre: " << name << std::endl;
     std::cout <<"Posicion: " << position << std::endl;
     if (type == TERRITORY)
@@ -139,5 +212,6 @@ void Square::print_info_square(int position)
     else
     {
         std::cout <<"Casilla nula" << std::endl;
+>>>>>>> bace37cc8891b3722227d19888758f579e191370
     }
 }
