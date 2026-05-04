@@ -3,12 +3,62 @@
 #include "Player.hpp"
 #include "GameMaster.hpp"
 #include "Menu.hpp"
+#include "Element.hpp"
 
-enum class GameState { MENU, SORTEO, PLAYING, OPTIONS };
+enum class GameState { MENU, SORTEO, PLAYING, OPTIONS, BATTLE_TEST};
+
+void draw_hp_bar(sf::RenderWindow& window, sf::Font& font, Player& p, sf::Vector2f pos) 
+{
+    sf::RectangleShape back(sf::Vector2f(250.f, 25.f));
+    back.setFillColor(sf::Color(100, 0, 0));
+    back.setOutlineThickness(2);
+    back.setOutlineColor(sf::Color::White);
+    back.setPosition(pos);
+    
+    float hpPercent = std::clamp(static_cast<float>(p.health_points) / 100.f, 0.0f, 1.0f);
+    sf::RectangleShape front(sf::Vector2f(250.f * hpPercent, 25.f));
+    front.setFillColor(sf::Color::Green);
+    front.setPosition(pos);
+
+    std::string elementStr = (p.selected_element == FIRE) ? "FUEGO" : (p.selected_element == ICE) ? "HIELO" : (p.selected_element == WIND) ? "VIENTO" : (p.selected_element == THUNDER) ? "RAYO" : "NEUTRAL";
+
+    sf::Text info(font, p.get_name() + " | ELEMENTO: " + elementStr, 18);
+    info.setFillColor(sf::Color::White);
+    info.setPosition({pos.x, pos.y - 35.f});
+
+    sf::Text hpText(font, std::to_string(p.health_points) + " / 100", 16);
+    hpText.setPosition({pos.x + 90.f, pos.y + 2.f});
+    hpText.setFillColor(sf::Color::Black);
+    window.draw(back);
+    window.draw(front);
+    window.draw(info);
+    window.draw(hpText);
+}
+
+void draw_move_slots(sf::RenderWindow& window, sf::Font& font, Player& p, sf::Vector2f pos, bool isPlayer1) 
+{
+    for (int i = 0; i < 4; ++i) {
+        sf::RectangleShape box(sf::Vector2f(280.f, 45.f));
+        box.setOutlineThickness(2);
+        box.setOutlineColor(sf::Color(150, 150, 150));
+        box.setFillColor(sf::Color(40, 40, 40));
+        box.setPosition({pos.x, pos.y + (i * 55.f)});
+
+        std::string keyHint = isPlayer1 ? std::to_string(i + 1) : std::to_string(i + 7);
+        if (i == 3 && !isPlayer1) keyHint = "0";
+
+        std::string moveName = (p.moves[i].name == "None") ? "--- VACIO ---" : p.moves[i].name;
+        sf::Text txt(font, "[" + keyHint + "] " + moveName + " (Pwr: " + std::to_string(p.moves[i].power) + ")", 16);
+        txt.setPosition({pos.x + 10.f, pos.y + (i * 55.f) + 10.f});
+
+        window.draw(box);
+        window.draw(txt);
+    }
+}
+
 
 int main() 
 {
-    // Creación de la ventana con SFML 3
     sf::RenderWindow window(sf::VideoMode({1200, 800}), "Roguepoly - Alpha");
     window.setFramerateLimit(60);
 
@@ -21,6 +71,7 @@ int main()
     Menu menu(1200.f, 800.f);
     Board board;
     GameMaster game_master;
+    MoveFactory factory;
 
     std::vector<Player> players;
     int current_turn_index = 0;
@@ -32,7 +83,6 @@ int main()
 
     while (window.isOpen()) 
     {
-        // --- 1. PROCESAMIENTO DE EVENTOS ---
         while (const std::optional event = window.pollEvent()) 
         {
             if (event->is<sf::Event::Closed>()) window.close();
@@ -59,6 +109,12 @@ int main()
                             for (int i = 0; i < numPlayers; ++i) 
                             {
                                 Player p(board.squares); 
+                                p.set_name("Jugador " + std::to_string(i+1));
+                                p.elements_player[0] = NEUTRAL;
+                                p.elements_player[1] = FIRE;
+                                p.elements_player[2] = ICE;
+                                p.elements_player[3] = WIND;
+                                p.elements_player[4] = THUNDER;
                                 if (i == 0) p.set_color(sf::Color::Red);
                                 else if (i == 1) p.set_color(sf::Color::Blue);
                                 else if (i == 2) p.set_color(sf::Color::Green);
@@ -81,6 +137,21 @@ int main()
                 }
                 else if (currentState == GameState::PLAYING) 
                 {
+                    if (keyPressed->code == sf::Keyboard::Key::T && players.size() >= 2) 
+                    {
+                        players[0].add_move(factory.create_move(2));
+                        players[0].add_move(factory.create_move(3));
+                        players[0].add_move(factory.create_move(4));
+                        players[0].add_move(factory.create_move(5)); 
+
+                        players[1].add_move(factory.create_move(2)); 
+                        players[1].add_move(factory.create_move(3));
+                        players[1].add_move(factory.create_move(4));
+                        players[1].add_move(factory.create_move(5));
+
+                        last_action_msg = "Prueba de Pelea";
+                        currentState = GameState::BATTLE_TEST;
+                    }
                     if (waitingForPurchase) 
                     {
                         Player& p_actual = players[current_turn_index];
@@ -133,6 +204,30 @@ int main()
                         menu.setSelectingPlayers(false);
                     }
                 }
+                else if(currentState == GameState::BATTLE_TEST)
+                {
+                    if (keyPressed->code == sf::Keyboard::Key::Escape) currentState = GameState::PLAYING;
+
+                    if (keyPressed->code == sf::Keyboard::Key::Num1) last_action_msg = game_master.resolve_attack(players[0], 0, players[1]).message;
+                    if (keyPressed->code == sf::Keyboard::Key::Num2) last_action_msg = game_master.resolve_attack(players[0], 1, players[1]).message;
+                    if (keyPressed->code == sf::Keyboard::Key::Num3) last_action_msg = game_master.resolve_attack(players[0], 2, players[1]).message;
+                    if (keyPressed->code == sf::Keyboard::Key::Num4) last_action_msg = game_master.resolve_attack(players[0], 3, players[1]).message;
+                    
+                    if (keyPressed->code == sf::Keyboard::Key::F1) players[0].change_element(FIRE);
+                    if (keyPressed->code == sf::Keyboard::Key::F2) players[0].change_element(ICE);
+                    if (keyPressed->code == sf::Keyboard::Key::F3) players[0].change_element(WIND);
+                    if (keyPressed->code == sf::Keyboard::Key::F4) players[0].change_element(THUNDER);
+
+                    if (keyPressed->code == sf::Keyboard::Key::Num7) last_action_msg = game_master.resolve_attack(players[1], 0, players[0]).message;
+                    if (keyPressed->code == sf::Keyboard::Key::Num8) last_action_msg = game_master.resolve_attack(players[1], 1, players[0]).message;
+                    if (keyPressed->code == sf::Keyboard::Key::Num9) last_action_msg = game_master.resolve_attack(players[1], 2, players[0]).message;
+                    if (keyPressed->code == sf::Keyboard::Key::Num0) last_action_msg = game_master.resolve_attack(players[1], 3, players[0]).message;
+                    
+                    if (keyPressed->code == sf::Keyboard::Key::F5) players[1].change_element(FIRE);
+                    if (keyPressed->code == sf::Keyboard::Key::F6) players[1].change_element(ICE);
+                    if (keyPressed->code == sf::Keyboard::Key::F7) players[1].change_element(WIND);
+                    if (keyPressed->code == sf::Keyboard::Key::F8) players[1].change_element(THUNDER);
+                }
             }
         }
 
@@ -179,6 +274,18 @@ int main()
                     board.draw_purchase_panel(window, s.name, s.value);
                 }
             }
+        }
+        else if (currentState == GameState::BATTLE_TEST) 
+        {
+            draw_hp_bar(window, font, players[0], {100.f, 300.f});
+            draw_hp_bar(window, font, players[1], {850.f, 300.f});
+            draw_move_slots(window, font, players[0], {50.f, 550.f}, true);
+            draw_move_slots(window, font, players[1], {870.f, 550.f}, false);
+            
+            sf::Text logText(font, last_action_msg, 24);
+            logText.setFillColor(sf::Color::Yellow);
+            logText.setPosition({350, 100});
+            window.draw(logText);
         }
 
         window.display();

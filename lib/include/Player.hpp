@@ -2,10 +2,13 @@
 #define PLAYER_HPP
 #include <vector>
 #include <string>
+#include "MoveFactory.hpp"
+#include "Element.hpp"
 #include <SFML/Graphics.hpp>
 
-class Square;
 
+class Square;
+struct Moves;
 class Player 
 {   
     private:
@@ -17,8 +20,16 @@ class Player
         std::string name;
     public:
 
+    int money;
+    int health_points;
+    int power_points;
+    int attack;
+    int defense;
+    int velocity;
+    Moves moves[4];
+    Element elements_player[5];
+    Element selected_element;
     Player(Square (&board_ref)[44]);
-
     void move(int steps);
     void update_position();
     void draw_player(sf::RenderWindow &window);
@@ -30,6 +41,9 @@ class Player
     void add_property(Square* property);
     void set_name(std::string n);
     std::string get_name() const;
+    void change_element(Element element);
+    float damage_multiplicator(Element attacker, Element defender);
+    void add_move(Moves move);
 };
 
 #endif

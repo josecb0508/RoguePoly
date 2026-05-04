@@ -10,6 +10,13 @@
 #include <SFML/Graphics.hpp>
 
 
+struct CombatResult 
+{
+    float damage;
+    bool isCritical;
+    std::string message;
+};
+
 class GameMaster
 {
     public:
@@ -18,7 +25,7 @@ class GameMaster
         std::vector<Player> players;
         std::string set_turn_player(std::vector<Player>& players);
         void give_properties(Player&p, Square& s);
-
+        CombatResult resolve_attack(Player& attacker, int moveIndex, Player& defender);
 };
 
 #endif

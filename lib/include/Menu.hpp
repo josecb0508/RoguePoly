@@ -13,7 +13,6 @@ public:
     void moveDown();
     int getPressedItem() const { return selectedItemIndex; }
     
-    // Control de pantallas del menú
     bool isSelectingPlayers() const { return selectingPlayers; }
     void setSelectingPlayers(bool select);
     

@@ -1,9 +1,8 @@
 #include "GameMaster.hpp"
-#include <sstream>  // PARA EL ERROR DE stringstream
-#include <iostream> // PARA EL ERROR DE cout
+#include <sstream>  
+#include <iostream> 
 #include <random>
 
-// Generador de dados centralizado
 int GameMaster::roll_dice()
 {
     static std::random_device rd;
@@ -20,7 +19,6 @@ int GameMaster::play_turn(Player& p)
     return result;
 }
 
-// Algoritmo para ordenar los resultados del sorteo
 template <typename T>
 void insertion_sort(std::vector<T>& c)
 {
@@ -83,10 +81,9 @@ std::string GameMaster::set_turn_player(std::vector<Player>& players)
     players = sorted_players; 
     log << "=============================\n";
 
-    return log.str(); // Se envía al main para el panel visual
+    return log.str(); 
 }
 
-// Lógica de propiedades (vaciada para evitar bloqueos de terminal)
 void GameMaster::give_properties(Player& p, Square& s)
 {
 /*   char choice;
@@ -120,4 +117,30 @@ void GameMaster::give_properties(Player& p, Square& s)
         }
         }
     }*/
+}
+
+CombatResult GameMaster::resolve_attack(Player& attacker, int moveIndex, Player& defender) 
+{
+Moves& move = attacker.moves[moveIndex];
+    CombatResult result;
+
+    if (move.name == "None") {
+        result.message = attacker.get_name() + " no tiene ataque en ese slot.";
+        result.damage = 0;
+        return result;
+    }
+
+    float multiplier = attacker.damage_multiplicator(move.type_move, defender.selected_element);
+    float raw_damage = (move.power + attacker.attack) * multiplier;
+    float final_damage = std::max(5.0f, raw_damage - (float)defender.defense);
+
+    defender.health_points -= (int)final_damage;
+    if (defender.health_points < 0) defender.health_points = 0;
+
+    result.damage = final_damage;
+    result.message = attacker.get_name() + " uso " + move.name + " (" + std::to_string((int)final_damage) + " dmg)";
+    if (multiplier > 1.0f) result.message += " ¡SUPEREFICAZ!";
+    if (multiplier < 1.0f) result.message += " Poco eficaz...";
+
+    return result;
 }
